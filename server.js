@@ -15,7 +15,7 @@ const routes = require("./routes");
 const db = require("./config/keys").mongoURI;
 
 /* Set Security Configs */
-app.use(helmet());
+// app.use(helmet());
 // app.use(hpp());
 
 // Define middleware here
