@@ -3,16 +3,16 @@ const passport = require("passport");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 // Load User model
-const holdingsController = require("../../controllers/holdingsController");
+const priceController = require("../../controllers/priceController");
 const keys = require("../../config/keys");
 
-router.get('/price', passport.authenticate('jwt', {
-	session: false
-}), holdingsController.findByUserID);
+// router.get('/price/:currency', passport.authenticate('jwt', {
+// 	session: false
+// }), priceController.getPriceByCurrency);
 
-router.put('/price', passport.authenticate('jwt', {
-	session: false
-}), holdingsController.updateOrCreate)
+// router.put('/price', passport.authenticate('jwt', {
+// 	session: false
+// }), priceController.updateOrCreate)
 
 
 module.exports = router;

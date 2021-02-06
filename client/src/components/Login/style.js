@@ -1,4 +1,5 @@
-export default  (theme) => { return {
+export default (theme) => { 
+    return {
     root: {
         flexGrow: 1,
     },

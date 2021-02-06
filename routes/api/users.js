@@ -37,6 +37,7 @@ router.post("/register", (req, res) => {
 router.post('/login', passport.authenticate('local', {
 	session: false
 }), (req, res) => {
+	console.log(req.user);
 	// Token
 	const token = jwt.sign({id: req.user.id}, keys.secretOrKey)
 

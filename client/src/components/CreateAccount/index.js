@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import Style from './style';
 
-const useStyles = makeStyles((theme) => (Style));
+const useStyles = makeStyles((theme) => (Style(theme)));
 
 function CreateAccount(props) {
     const classes = useStyles();

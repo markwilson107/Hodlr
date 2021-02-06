@@ -8,12 +8,14 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Hidden from "@material-ui/core/Hidden";
+import _Button from "../Button/index.js";
 
 import Style from './style';
 
-const useStyles = makeStyles((theme) => (Style));
+const useStyles = makeStyles((theme) => (Style(theme)));
 
 function LoginForm(props) {
+    
     const classes = useStyles();
 
     const {
@@ -21,6 +23,8 @@ function LoginForm(props) {
         user,
         login
     } = useAuth();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [userState, setUserState] = useState(
         {
@@ -59,6 +63,7 @@ function LoginForm(props) {
                 message: ""
             }
         );
+        setIsLoading(true);
 
         let param = new URLSearchParams();
         param.append('email', userState.email);
@@ -66,6 +71,7 @@ function LoginForm(props) {
 
         // You must need to validate data but I skipped in here
         login(param, err => {
+            setIsLoading(false);
             if (err === 401) {
                 setErrorState({
                     code: err,
@@ -103,7 +109,7 @@ function LoginForm(props) {
                                 <TextField InputLabelProps={{ required: false }} className={classes.input} id="email" label="Email" type="email" variant="outlined" onChange={onChange} value={userState.email} required />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField InputLabelProps={{ required: false }} className={classes.input} id="password" label="Password" type="password" variant="outlined" onChange={onChange} value={userState.password} pattern=".{6,20}" required />
+                                <TextField InputLabelProps={{ required: false }} className={classes.input} id="password" label="Password" type="password" variant="outlined" onChange={onChange} value={userState.password} pattern=".{6,20}"  required />
                             </Grid>
                             {errorState.code ?
                                 (
@@ -114,9 +120,9 @@ function LoginForm(props) {
                                     </Grid>
                                 ) : ""}
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={`${classes.button} {classes.root}`}>
+                                <_Button type="submit" isLoading={isLoading} variant="contained" color="primary" className={`${classes.button} {classes.root}`}>
                                     Sign in
-                                </Button>
+                                </_Button>
                             </Grid>
                         </Grid>
                     </form >

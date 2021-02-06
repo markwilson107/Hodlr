@@ -26,10 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-app.use(express.static("client/public"))
+app.use(express.static("client/public"));
 
 // Passport config
-const passportControl = require('./config/passport')
+const passportControl = require('./config/passport');
 
 // Passport middleware
 app.use(passportControl.initialize());

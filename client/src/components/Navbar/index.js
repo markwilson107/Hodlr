@@ -14,7 +14,7 @@ import { useAuth } from '../../utils/use-auth';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
-        backgroundColor: `#f9f9f9`,
+        backgroundColor: theme.background.main,
         color: "black",
         zIndex: "7"
     },
@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
         height: "65px"
     },
     toolbarButton1: {
-        backgroundColor: "#efefef",
+        backgroundColor: theme.background.dark,
         height: "25px",
         width: "25px",
-        color: "#ffce49",
+        color: theme.pallette,
         padding: "20px",
         display: "inline-block",
         // transition: ".3s ease",
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
     toolbarButton2:
     {
-        backgroundColor: "#ffce49",
+        backgroundColor: theme.palette.primary.yellow,
         height: "25px",
         width: "25px",
         color: "white",

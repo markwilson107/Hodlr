@@ -1,24 +1,26 @@
-export default {
-    root: {
-        flexGrow: 1
-    },
-    input: {
-        width: "100%",
-        maxWidth: "400px"
-    },
-    leftSide: {
+export default (theme) => {
+    return {
+        root: {
+            flexGrow: 1
+        },
+        input: {
+            width: "100%",
+            maxWidth: "400px"
+        },
+        leftSide: {
 
-    },
-    rightSide: {
+        },
+        rightSide: {
 
-    },
-    logo: {
+        },
+        logo: {
 
-        maxWidth: "200px",
-        marginBottom: "30px"
+            maxWidth: "200px",
+            marginBottom: "30px"
 
-    },
-    description: {
+        },
+        description: {
 
+        }
     }
-}
+};
