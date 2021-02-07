@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 // Material UI
 import IconButton from '@material-ui/core/IconButton';
 import { createMuiTheme, responsiveFontSizes, makeStyles } from '@material-ui/core/styles';
@@ -13,9 +14,11 @@ function GoBack(props) {
 
     return (
         <div className={classes.back}>
-            <IconButton href="/" aria-label="back">
-                <KeyboardBackspaceIcon className={classes.arrow} />
-            </IconButton>
+            <Link to={{ pathname: "/" }}>
+                <IconButton aria-label="back">
+                    <KeyboardBackspaceIcon className={classes.arrow} />
+                </IconButton>
+            </Link>
         </div>
     )
 

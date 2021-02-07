@@ -5,10 +5,9 @@ import { createMuiTheme, responsiveFontSizes, makeStyles } from '@material-ui/co
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Hidden from "@material-ui/core/Hidden";
-import _Button from "../Button/index.js";
+import Button from "../Button/index.js";
 
 import Style from './style';
 
@@ -120,9 +119,9 @@ function LoginForm(props) {
                                     </Grid>
                                 ) : ""}
                             <Grid item xs={12}>
-                                <_Button type="submit" isLoading={isLoading} variant="contained" color="primary" className={`${classes.button} {classes.root}`}>
+                                <Button type="submit" isLoading={isLoading} variant="contained" color="primary" >
                                     Sign in
-                                </_Button>
+                                </Button>
                             </Grid>
                         </Grid>
                     </form >

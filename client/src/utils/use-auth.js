@@ -40,8 +40,7 @@ export function useAuth() {
 
 function useProvideAuth() {
   const [user, setUser] = useState(null);
-  const [jwt, setJwt] = useState(localStorage.getItem('token'))
-
+  const [jwt, setJwt] = useState(localStorage.getItem('token'));
   const isLoggedIn = user !== null;
 
   useEffect(() => {
@@ -54,6 +53,7 @@ function useProvideAuth() {
     }).then((res) => {
       setUser(res.data)
     }).catch((err) => {
+      setUser(null)
       console.log(err)
     })
   }, [jwt])
@@ -81,6 +81,7 @@ function useProvideAuth() {
   function logout() {
     localStorage.removeItem('token');
     setJwt(undefined);
+    setUser(null);
   }
 
   return {

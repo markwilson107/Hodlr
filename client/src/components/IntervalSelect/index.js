@@ -10,39 +10,36 @@ import InputLabel from '@material-ui/core/InputLabel';
 import style from './style';
 const useStyles = makeStyles((theme) => (style(theme)));
 
-const axios = require('axios');
-
-function ExchangeSelect({ exchange, setExchange }) {
+function IntervalSelect({ intervals , setIntervals }) {
 
     const classes = useStyles();
 
     const handleChange = (event) => {
-        setExchange({ ...exchange, current: event.target.value })
+        setIntervals({ ...intervals, current: event.target.value})
     }
 
     return (
         <div className={classes.root}>
             <Select
-                disableUnderline
+            disableUnderline
                 native
-                value={exchange.current}
+                value={intervals.current}
                 onChange={handleChange}
-                label="Exchange"
+                label="Intervals"
                 inputProps={{
-                    name: 'exchanges',
-                    id: 'exchangeSelect',
-                    style: { paddingLeft: "10px" }
+                    name: 'intervals',
+                    id: 'intervalsSelect',
+                    style: {paddingLeft: "10px"}
                 }}
             >
                 {
-                    exchange.list ?
-                        exchange.list.map((row, index) => (
-                            <option key={`${row}`} value={row}>{row.charAt(0).toUpperCase() + row.slice(1)}</option>
-                        )) : ""
+                intervals.list.map((row, index) => (
+                  <option key={`${row.value}`} value={`${row.value}`}>{row.label}</option>  
+                ))
                 }
             </Select>
         </div>
     );
 }
 
-export default ExchangeSelect;
+export default IntervalSelect;

@@ -16,7 +16,7 @@ module.exports = {
   findPairs: function (req, res) {
     let result = exchanges.find(exchange => exchange.exchange === req.params["id"]);
     if (result) {
-      res.json(result);
+      res.json(result.data);
     }
     else
     res.status(422);

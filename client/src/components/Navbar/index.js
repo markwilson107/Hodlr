@@ -1,7 +1,8 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+import MDLink from '@material-ui/core/Link';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -9,7 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import DashboardIcon from '@material-ui/icons/Apps';
+import WalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import { useAuth } from '../../utils/use-auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,10 +36,10 @@ const useStyles = makeStyles((theme) => ({
         height: "65px"
     },
     toolbarButton1: {
-        backgroundColor: theme.background.dark,
+        backgroundColor: theme.background.main,
         height: "25px",
         width: "25px",
-        color: theme.pallette,
+        color: theme.palette.primary.yellow,
         padding: "20px",
         display: "inline-block",
         // transition: ".3s ease",
@@ -45,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: "#e8e8e8",
             // width: "50px",
         },
+    },
+    toolbarButtonSelect: {
+        backgroundColor: theme.background.dark,
     },
     toolbarButton2:
     {
@@ -73,37 +78,33 @@ function Navbar(props) {
     } = useAuth();
 
     return (
-        <AppBar elevation={0} className={classes.appbar} position="static">
+        <AppBar elevation={null} className={classes.appbar} position="static">
             <Toolbar className={classes.toolbar} >
-                <Link href="/"><img src="./hodlr-logo-300.png" className={classes.logo}></img></Link>
+                <NavLink to={{ pathname: "/" }} ><img src="./hodlr-logo-300.png" className={classes.logo}></img></NavLink>
                 <div className={classes.toolbarButtonDiv}>
 
                     {isLoggedIn
                         ? (<>
-                            <Link href="/dashboard">
-                                <div className={classes.toolbarButton1}>
-                                    <DashboardIcon style={{ width: "auto", height: "auto" }} />
-                                </div>
-                            </Link>
-
-                            <Link onClick={() => { logout() }} href="/">
+                            <NavLink className={classes.toolbarButton1} to={{ pathname: "/wallet" }} activeClassName={classes.toolbarButtonSelect} >
+                                <WalletIcon style={{ width: "auto", height: "auto" }} />
+                            </NavLink>
+                            <NavLink className={classes.toolbarButton1} to={{ pathname: "/dashboard" }} activeClassName={classes.toolbarButtonSelect} >
+                                <DashboardIcon style={{ width: "auto", height: "auto" }} />
+                            </NavLink>
+                            <MDLink onClick={(e) => { e.preventDefault(); logout() }} href="/">
                                 <div className={classes.toolbarButton2}>
                                     <LogoutIcon style={{ width: "auto", height: "auto" }} />
                                 </div>
-                            </Link>
+                            </MDLink>
                         </>)
                         : (<>
-                            <Link href="/login">
-                                <div className={classes.toolbarButton1}>
-                                    <PersonIcon style={{ width: "auto", height: "auto" }} />
-                                </div>
-                            </Link>
+                            <NavLink className={`${classes.toolbarButton1} ${classes.toolbarButtonSelect}`} to={{ pathname: "/login" }}  >
+                                <PersonIcon style={{ width: "auto", height: "auto" }} />
+                            </NavLink>
 
-                            <Link href="/register">
-                                <div className={classes.toolbarButton2}>
-                                    <PersonAddIcon style={{ width: "auto", height: "auto" }} />
-                                </div>
-                            </Link>
+                            <NavLink className={classes.toolbarButton2} to={{ pathname: "/register" }} >
+                                <PersonAddIcon style={{ width: "auto", height: "auto" }} />
+                            </NavLink>
                         </>)
                     }
                 </div>

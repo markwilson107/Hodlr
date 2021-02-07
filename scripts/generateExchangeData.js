@@ -65,3 +65,4 @@ fetch('https://api.cryptowat.ch/assets')
             }
         });
     });
+

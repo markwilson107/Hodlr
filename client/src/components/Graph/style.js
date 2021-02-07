@@ -1,12 +1,12 @@
 export default (theme) => {
     return {
         root: {
-            backgroundColor: theme.background.main,
-            height: "500px"
+            backgroundColor: "white",
+          
         },
         toolbar: {
-            display: "inline-block"
-            
+            borderBottom: "0px solid black",
+            backgroundColor: theme.background.main
         }
         
     }

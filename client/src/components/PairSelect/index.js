@@ -10,33 +10,33 @@ import InputLabel from '@material-ui/core/InputLabel';
 import style from './style';
 const useStyles = makeStyles((theme) => (style(theme)));
 
-const axios = require('axios');
-
-function PairSelect({ pairState , setPairState , pairs }) {
+function PairSelect({ pairs, setPairs }) {
 
     const classes = useStyles();
 
     const handleChange = (event) => {
-        setPairState({ pair: event.target.value})
+        setPairs({ ...pairs, current: event.target.value })
     }
 
     return (
         <div className={classes.root}>
             <Select
                 native
-                value={pairState.pair}
+                disableUnderline
+                value={pairs.current}
                 onChange={handleChange}
                 label="Pair"
                 inputProps={{
                     name: 'pairs',
                     id: 'pairSelect',
+                    style: { paddingLeft: "10px" }
                 }}
             >
                 {
-                pairs ?
-                pairs.map((row) => (
-                  <option value={row.pair}>{row.base.toUpperCase()}{"/"}{row.quote.toUpperCase()}</option>  
-                )):""
+                    pairs.list ?
+                        pairs.list.map((row) => (
+                            <option key={row.pair} value={row.pair}>{row.base.toUpperCase()}{"/"}{row.quote.toUpperCase()}</option>
+                        )) : ""
                 }
             </Select>
         </div>

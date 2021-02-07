@@ -6,9 +6,7 @@ const jwt = require("jsonwebtoken");
 const priceController = require("../../controllers/priceController");
 const keys = require("../../config/keys");
 
-// router.get('/price/:currency', passport.authenticate('jwt', {
-// 	session: false
-// }), priceController.getPriceByCurrency);
+router.get('/:exchange/:pair', priceController.getPrice);
 
 // router.put('/price', passport.authenticate('jwt', {
 // 	session: false

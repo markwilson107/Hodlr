@@ -105,12 +105,13 @@ function Dashboard(props) {
       console.log(err);
     })
   }
+
   if (!isLoggedIn) {
     return (
       <Redirect
         to={{
           pathname: '/login',
-          state: { from: props.location }
+          state: { from: window.location.pathname }
         }}
       />
     )
@@ -128,8 +129,6 @@ function Dashboard(props) {
             </Grid>
           </Grid>
         </Container>
-
-
       </div>
     );
   }
