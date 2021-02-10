@@ -8,6 +8,8 @@ const keys = require("../../config/keys");
 
 router.get('/:exchange/:pair', priceController.getPrice);
 
+router.get('/all', priceController.getAll);
+
 // router.put('/price', passport.authenticate('jwt', {
 // 	session: false
 // }), priceController.updateOrCreate)

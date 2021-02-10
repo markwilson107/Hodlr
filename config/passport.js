@@ -6,7 +6,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const db = require('../models');
 const keys = require("./keys");
 
-const development = true;
+const development = false;
 
 // Local Strategy
 passport.use(new Strategy(

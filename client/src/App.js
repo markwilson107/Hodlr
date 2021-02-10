@@ -17,6 +17,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from './theme'
 import { ProvideAuth } from "./utils/use-auth";
 import { ProvideData } from "./utils/use-data";
+import { ProvideHoldings } from "./utils/use-holdings";
+import { ProvideFavorites } from "./utils/use-favorites";
 
 function MainRoutes() {
   return (
@@ -38,15 +40,19 @@ function App() {
   return (
     <ProvideAuth>
       <ProvideData>
-        <Router>
-          <ThemeProvider theme={theme}>
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route component={MainRoutes} />
-            </Switch>
-          </ThemeProvider>
-        </Router>
+        <ProvideHoldings>
+          <ProvideFavorites>
+            <Router>
+              <ThemeProvider theme={theme}>
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/register" component={Register} />
+                  <Route component={MainRoutes} />
+                </Switch>
+              </ThemeProvider>
+            </Router>
+          </ProvideFavorites>
+        </ProvideHoldings>
       </ProvideData>
     </ProvideAuth >
   );

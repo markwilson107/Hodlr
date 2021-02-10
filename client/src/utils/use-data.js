@@ -1,4 +1,6 @@
 import React, { useContext, createContext, useState, useEffect, useRef } from "react";
+import { useDidMount } from './useDidMount';
+
 const axios = require('axios');
 
 const dataContext = createContext();
@@ -17,7 +19,8 @@ export function useData() {
 }
 
 function useProvideData() {
-  const isInitialMount = useRef(true);
+
+  const didMount = useDidMount();
 
   const [exchange, setExchange] = useState({
     current: "binance",
@@ -25,7 +28,7 @@ function useProvideData() {
   });
 
   const [pairs, setPairs] = useState({
-    current: "btcusdt",
+    current: { pair: "btcusdt", base: "btc", quote: "usdt" },
     list: []
   });
 
@@ -63,53 +66,77 @@ function useProvideData() {
   const formatData = (data) => {
     let newData = [];
     data.map((row) => {
-      newData.push([row[0]*1000,row[2]])
+      newData.push([row[0] * 1000, row[2]])
     })
     return newData;
   }
 
-  useEffect(() => {
+  function getExchange() {
     axios({
       method: "get",
       url: "/api/exchange/exchanges"
     }).then((res) => {
       setExchange({ ...exchange, list: res.data });
-      console.log("EELLOO")
+      console.log("Exchange updated")
     }).catch((err) => {
       console.log(err)
     })
-  }, [])
+  }
 
-  useEffect(() => {
+  function getPairs() {
     axios({
       method: "get",
       url: "/api/exchange/exchanges/" + exchange.current
     }).then((res) => {
-      setPairs({ current: res.data[0].pair, list: res.data });
-      console.log("EELLOO2")
+      setPairs({ ...pairs, list: res.data });
+      console.log("Pairs updated")
     }).catch((err) => {
       console.log(err);
     })
-  }, [exchange])
+  }
 
-  useEffect(() => {
+  function getGraph() {
     axios({
       method: "get",
-      url: `/api/price/${exchange.current}/${pairs.current}`
+      url: `/api/price/${exchange.current}/${pairs.current.pair}`
     }).then((res) => {
-      console.log("EELLOO333")
+      console.log("Graph updated")
       setGraphData(res.data);
+      console.log(pairs.current)
     }).catch((err) => {
       console.log(err);
     })
-  }, [pairs])
+  }
 
-  useEffect(() => {
-    console.log("EELLOO444")
+  function updateSeries() {
+    console.log("Series updated")
     setSeries([{
       name: "Price:",
       data: formatData(graphData[intervals.current])
     }])
+  }
+
+
+  useEffect(() => {
+    getExchange();
+  }, [])
+
+
+  useEffect(() => {
+    if (didMount)
+    getPairs();
+  }, [exchange])
+
+
+  useEffect(() => {
+    if (didMount)
+    getGraph();
+  }, [pairs])
+
+
+  useEffect(() => {
+    if (didMount)
+    updateSeries();
   }, [graphData, intervals])
 
 

@@ -9,27 +9,37 @@ const db = require("../../models");
 const keys = require("../../config/keys");
 
 router.post("/register", (req, res) => {
-  // Form validation
-  const { errors, isValid } = validateRegisterInput(req.body);
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+	// Form validation
+	const { errors, isValid } = validateRegisterInput(req.body);
+	// Check validation
+	if (!isValid) {
+		return res.status(400).json(errors);
+	}
 	var user = new db.User({
-    name: req.body.name,
+		name: req.body.name,
 		email: req.body.email,
-    password: req.body.password,
-    password2: req.body.password2
+		password: req.body.password,
+		password2: req.body.password2
 	})
+
 
 	user.save().then((err) => {
 		// Token
-		const token = jwt.sign({id: user.id}, keys.secretOrKey, {expiresIn: "1y"})
-		res.json({token: token})
+		const token = jwt.sign({ id: user.id }, keys.secretOrKey, { expiresIn: "1y" })
+		res.json({ token: token })
 
-	}).catch((err) => {
-		res.status().json({})
-	})
+		const holdings = new db.Holdings({
+			userId: user.id,
+			holdings: []
+		})
+		holdings.save().catch(err => res.status(422).json(err));
+		const favorites = new db.Favorites({
+			userId: user.id,
+			favorites: []
+		})
+		favorites.save().catch(err => res.status(422).json(err));
+
+	}).catch(err => res.status(422).json(err));
 })
 
 
@@ -39,17 +49,17 @@ router.post('/login', passport.authenticate('local', {
 }), (req, res) => {
 	console.log(req.user);
 	// Token
-	const token = jwt.sign({id: req.user.id}, keys.secretOrKey)
+	const token = jwt.sign({ id: req.user.id }, keys.secretOrKey)
 
-	res.json({token: token})
+	res.json({ token: token })
 });
 
 // Return user information
 router.get('/user', passport.authenticate('jwt', {
 	session: false
 }), (req, res) => {
-	if ( !req.user ) {
-		
+	if (!req.user) {
+
 		res.json({
 			username: 'nobody'
 		})

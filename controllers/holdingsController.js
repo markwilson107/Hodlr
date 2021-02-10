@@ -10,7 +10,7 @@ module.exports = {
   updateOrCreate: function(req, res) {
     let newHoldings = req.body;
     db.Holdings
-      .findOneAndUpdate({ userId: req.user.id }, {"$push": {"holdings": { "currency": newHoldings.currency, "amount": newHoldings.amount}}}, {upsert: true, new: true,})
+      .findOneAndUpdate({ userId: req.user.id }, {"$push": {"holdings": { "currency": newHoldings.currency, "exchange": newHoldings.exchange, "amount": newHoldings.amount, "date": Date.now}}}, {upsert: true, new: true,})
       .then(holdings => res.json(holdings.holdings))
       .catch(err => res.status(422).json(err));
   },

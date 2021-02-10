@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import PersonIcon from '@material-ui/icons/Person';
+import StartIcon from '@material-ui/icons/Star';
+import StartBorderIcon from '@material-ui/icons/StarBorder';
 import ExchangeSelect from '../ExchangeSelect';
 import PairSelect from '../PairSelect';
 import IntervalSelect from '../IntervalSelect';
@@ -12,11 +13,12 @@ import ApexCharts from 'apexcharts';
 import PriceChart from "react-apexcharts";
 
 import { useData } from '../../utils/use-data';
+import { useFavorites } from '../../utils/use-favorites';
 
 import style from './style';
 const useStyles = makeStyles((theme) => (style(theme)));
 
-function Graph(props) {
+function Graph() {
     const classes = useStyles();
     const {
         exchange,
@@ -29,6 +31,15 @@ function Graph(props) {
         intervals,
         setIntervals
     } = useData();
+    const {
+        favorites,
+        addFavorite,
+        removeFavorite,
+        currentFavorite,
+        setCurrentFavorites
+    } = useFavorites();
+
+    const [starIsShown, setStarIsShown] = useState(false);
 
     const [chartOptionsState, setChartOptionsState] = useState(
         {
@@ -108,17 +119,40 @@ function Graph(props) {
             }
         });
 
+        const handleStar = () => {
+            if (currentFavorite.exchange === exchange.current && currentFavorite.pair === pairs.current.pair) {
+                removeFavorite();
+            } else {
+                addFavorite();
+            }
+        }
+
     return (
-        <div className={classes.root}>
+        <div id="graphDiv" className={`${classes.root}`}>
             <div className={classes.toolbar}>
                 <ExchangeSelect exchange={exchange} setExchange={setExchange} />
                 <PairSelect pairs={pairs} setPairs={setPairs} />
                 <IntervalSelect intervals={intervals} setIntervals={setIntervals} />
+
+                <div
+                    onMouseEnter={() => setStarIsShown(true)}
+                    onMouseLeave={() => setStarIsShown(false)}
+                    onClick={handleStar}
+                    className={`${classes.star} ${classes.yellow}`}
+                >
+                    {starIsShown || currentFavorite.exchange === exchange.current && currentFavorite.pair === pairs.current.pair
+                        ? <StartIcon />
+                        : <StartBorderIcon />
+                    }
+
+                </div>
+
             </div>
             <PriceChart
                 options={chartOptionsState.options}
                 series={series}
                 type="area"
+                height="453"
             />
         </div>
     );

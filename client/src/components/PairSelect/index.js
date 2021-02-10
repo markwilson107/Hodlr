@@ -15,7 +15,7 @@ function PairSelect({ pairs, setPairs }) {
     const classes = useStyles();
 
     const handleChange = (event) => {
-        setPairs({ ...pairs, current: event.target.value })
+        setPairs({ ...pairs, current: { pair: event.target.value, base: event.target[event.target.selectedIndex].getAttribute('data-base'), quote: event.target[event.target.selectedIndex].getAttribute('data-quote') } })
     }
 
     return (
@@ -23,7 +23,7 @@ function PairSelect({ pairs, setPairs }) {
             <Select
                 native
                 disableUnderline
-                value={pairs.current}
+                value={pairs.current.pair}
                 onChange={handleChange}
                 label="Pair"
                 inputProps={{
@@ -35,7 +35,7 @@ function PairSelect({ pairs, setPairs }) {
                 {
                     pairs.list ?
                         pairs.list.map((row) => (
-                            <option key={row.pair} value={row.pair}>{row.base.toUpperCase()}{"/"}{row.quote.toUpperCase()}</option>
+                            <option key={row.pair} value={row.pair} data-base={row.base} data-quote={row.quote}>{row.base.toUpperCase()}{"/"}{row.quote.toUpperCase()}</option>
                         )) : ""
                 }
             </Select>

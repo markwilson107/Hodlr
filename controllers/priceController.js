@@ -20,6 +20,18 @@ module.exports = {
         console.log(err);
       })
     }
+  },
+  getAll: function (req,res) {
+    axios({
+      method: "get",
+      url: `https://api.cryptowat.ch/markets/prices`,
+      headers: { 'Access-Control-Request-Origin': 'https://api.cryptowat.ch' }
+    }).then((price) => {
+      res.json(price.data.result);
+    }).catch((err) => {
+      res.status(422).json(err);
+      console.log(err);
+    })
   }
   // priceByCurrency: function (req, res) {
   //   db.Pairs

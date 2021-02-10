@@ -87,6 +87,7 @@ function useProvideAuth() {
   return {
     isLoggedIn,
     user,
+    jwt,
     login,
     logout,
     updateJwt
