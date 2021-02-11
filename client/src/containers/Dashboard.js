@@ -16,10 +16,19 @@ const useStyles = makeStyles((theme) => ({
   root: {
     overflowX: "hidden",
     backgroundColor: theme.background.dark,
+    [theme.breakpoints.up('xl')]: {
+      padding: "0px 500px 0px 500px"
+    },
+    [theme.breakpoints.down('xl')]: {
+      padding: "0px 400px 0px 400px"
+    },
     [theme.breakpoints.down('lg')]: {
-      padding: "0px 150px 0px 150px"
+      padding: "0px 200px 0px 200px"
     },
     [theme.breakpoints.down('md')]: {
+      padding: "0px 60px 0px 60px"
+    },
+    [theme.breakpoints.down('sm')]: {
       padding: "0px 30px 0px 30px"
     },
     [theme.breakpoints.down('xs')]: {
@@ -29,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   paddingRight: {
     paddingRight: "35px",
     [theme.breakpoints.up('lg')]: {
-      paddingRight: "130px"
+      paddingRight: "70px"
     },
     [theme.breakpoints.down('lg')]: {
       paddingRight: "70px"

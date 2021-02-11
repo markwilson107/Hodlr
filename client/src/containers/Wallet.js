@@ -14,15 +14,23 @@ import AddHoldings from '../components/AddHoldings';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.background.dark,
-
+    [theme.breakpoints.up('xl')]: {
+      padding: "30px 500px 30px 500px"
+    },
+    [theme.breakpoints.down('xl')]: {
+      padding: "30px 400px 30px 400px"
+    },
     [theme.breakpoints.down('lg')]: {
-      padding: "30px 150px 30px 150px"
+      padding: "30px 200px 30px 200px"
     },
     [theme.breakpoints.down('md')]: {
+      padding: "30px 60px 30px 60px"
+    },
+    [theme.breakpoints.down('sm')]: {
       padding: "30px 30px 30px 30px"
     },
     [theme.breakpoints.down('xs')]: {
-      padding: "30px 0px 30px 0px"
+      padding: "30px 0px 0px 0px"
     }
   },
   paddingTop: {

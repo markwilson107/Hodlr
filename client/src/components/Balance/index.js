@@ -84,7 +84,7 @@ function Balance() {
     return (
         <div id="balanceDiv" className={`${classes.root}`} >
             <div className="donut">
-                <Chart options={chartOptions.options} series={chartOptions.series} type="pie" height="400" />
+                <Chart options={chartOptions.options} series={chartOptions.series} type="pie" height="400" width="100%" />
             </div>
 
         </div>

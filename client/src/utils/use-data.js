@@ -111,7 +111,7 @@ function useProvideData() {
   function updateSeries() {
     console.log("Series updated")
     setSeries([{
-      name: "Price:",
+      name: "Price",
       data: formatData(graphData[intervals.current])
     }])
   }

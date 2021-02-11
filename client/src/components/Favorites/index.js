@@ -47,8 +47,8 @@ function Holdings(props) {
             <Container maxWidth={false} >
                 <Grid container spacing={0}>
                     <Grid item >
-                        {favorites.map((row) =>
-                            <Button onClick={() => { handleClick(row.exchange, row.pair, row.base, row.quote, row.interval) }} >{row.base}<Typography className={classes.quote} variant="caption">/{row.quote}</Typography></Button>
+                        {favorites.map((row, index) =>
+                            <Button key={row.pair+index} onClick={() => { handleClick(row.exchange, row.pair, row.base, row.quote, row.interval) }} >{row.base}<Typography className={classes.quote} variant="caption">/{row.quote}</Typography></Button>
                         )}
 
                     </Grid>

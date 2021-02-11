@@ -46,23 +46,23 @@ fetch('https://api.cryptowat.ch/markets')
 
     });
 
-fetch('https://api.cryptowat.ch/pairs')
-    .then(response => response.json())
-    .then(res => {
-        fs.writeFile("pairs.json", JSON.stringify(res.result), function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
-    });
+// fetch('https://api.cryptowat.ch/pairs')
+//     .then(response => response.json())
+//     .then(res => {
+//         fs.writeFile("pairs.json", JSON.stringify(res.result), function (err) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//         });
+//     });
 
-fetch('https://api.cryptowat.ch/assets')
-    .then(response => response.json())
-    .then(res => {
-        fs.writeFile("assets.json", JSON.stringify(res.result), function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
-    });
+// fetch('https://api.cryptowat.ch/assets')
+//     .then(response => response.json())
+//     .then(res => {
+//         fs.writeFile("assets.json", JSON.stringify(res.result), function (err) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//         });
+//     });
 

@@ -11,6 +11,8 @@ import ChartJS from "../ChartJS";
 import ApexCharts from 'apexcharts';
 import PriceChart from "react-apexcharts";
 import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 import { useData } from '../../utils/use-data';
 import { useHoldings } from '../../utils/use-holdings';
@@ -87,7 +89,7 @@ function AddHoldings() {
     const handleNext = () => {
         if (activeStep === 2 && transaction.amount > 0) {
             addHolding(transaction.exchange, transaction.currency, transaction.amount);
-            setTransaction({ ...transaction, amount: 0})
+            setTransaction({ ...transaction, amount: 0 })
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
         } else {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -107,13 +109,11 @@ function AddHoldings() {
             <div className={classes.toolbar}>
                 <Typography variant="body2" >Add Transaction</Typography>
             </div>
-            <Stepper activeStep={activeStep}>
+            <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
                     return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
+                        <Step key={label} >
+                            <StepLabel>{label}</StepLabel>
                         </Step>
                     );
                 })}
@@ -121,47 +121,54 @@ function AddHoldings() {
             <div className={classes.addTransaction}>
                 {activeStep === 0 ? (
                     <div>
-                        <Select
-                            native
-                            variant="outlined"
-                            value={transaction.exchange}
-                            onChange={handleExchange}
-                            label="Exchange"
-                            style={{ width: "100%", maxWidth: "400px" }}
-                            inputProps={{
-                                name: 'exchanges',
-                                id: 'exchangeSelect'
-                            }}
-                        >
-                            {
-                                exchange.list ?
-                                    exchange.list.map((row, index) => (
-                                        <option key={`${row}`} value={row}>{row.charAt(0).toUpperCase() + row.slice(1)}</option>
-                                    )) : ""
-                            }
-                        </Select>
+                        <FormControl variant="outlined" style={{ width: "100%", maxWidth: "400px" }}>
+                            <InputLabel id="select-exchange-trans">Exchange</InputLabel>
+                            <Select
+                                native
+                                id="select-exchange-trans"
+                                value={transaction.exchange}
+                                onChange={handleExchange}
+                                label="Exchange"
+
+                                inputProps={{
+                                    name: 'exchanges',
+                                    id: 'exchangeSelect'
+                                }}
+                            >
+                                {
+                                    exchange.list ?
+                                        exchange.list.map((row, index) => (
+                                            <option key={`${row}`} value={row}>{row.charAt(0).toUpperCase() + row.slice(1)}</option>
+                                        )) : ""
+                                }
+                            </Select>
+                        </FormControl>
                     </div>
                 ) : activeStep === 1 ? (
                     <div>
-                        <Select
-                            native
-                            variant="outlined"
-                            value={transaction.currency}
-                            onChange={handleCurrency}
-                            label="Pair"
-                            style={{ width: "100%", maxWidth: "400px" }}
-                            inputProps={{
-                                name: 'pairs',
-                                id: 'pairSelect'
-                            }}
-                        >
-                            {
-                                pairsAvailable ?
-                                    pairsAvailable.map((row) => (
-                                        <option key={row.pair} value={row.pair} data-base={row.base} data-quote={row.quote}>{row.base.toUpperCase()}{"/"}{row.quote.toUpperCase()}</option>
-                                    )) : ""
-                            }
-                        </Select>
+                        <FormControl variant="outlined" style={{ width: "100%", maxWidth: "400px" }}>
+                            <InputLabel id="select-pair-trans">Currency</InputLabel>
+                            <Select
+                                native
+                                id="select-pair-trans"
+                                variant="outlined"
+                                value={transaction.currency}
+                                onChange={handleCurrency}
+                                label="Currency"
+                                style={{ width: "100%", maxWidth: "400px" }}
+                                inputProps={{
+                                    name: 'pairs',
+                                    id: 'pairSelect'
+                                }}
+                            >
+                                {
+                                    pairsAvailable ?
+                                        pairsAvailable.map((row) => (
+                                            <option key={row.pair} value={row.pair} data-base={row.base} data-quote={row.quote}>{row.base.toUpperCase()}{"/"}{row.quote.toUpperCase()}</option>
+                                        )) : ""
+                                }
+                            </Select>
+                        </FormControl>
                     </div>
                 ) : activeStep === 2 ? (
                     <div>

@@ -1,7 +1,8 @@
 const db = require("../models");
 const axios = require('axios');
+const keys = require("../config/keys");
 
-const development = true;
+const development = false;
 dummyPrice = require('../data/dummyPrice');
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
     } else {
       axios({
         method: "get",
-        url: `https://api.cryptowat.ch/markets/${req.params["exchange"]}/${req.params["pair"]}/ohlc`,
+        url: `https://api.cryptowat.ch/markets/${req.params["exchange"]}/${req.params["pair"]}/ohlc`+`?apikey=`+keys.cryptowatchAPI,
         headers: { 'Access-Control-Request-Origin': 'https://api.cryptowat.ch' }
       }).then((price) => {
         res.json(price.data.result);
@@ -24,7 +25,7 @@ module.exports = {
   getAll: function (req,res) {
     axios({
       method: "get",
-      url: `https://api.cryptowat.ch/markets/prices`,
+      url: `https://api.cryptowat.ch/markets/prices`+`?apikey=`+keys.cryptowatchAPI,
       headers: { 'Access-Control-Request-Origin': 'https://api.cryptowat.ch' }
     }).then((price) => {
       res.json(price.data.result);
