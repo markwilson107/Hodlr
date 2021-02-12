@@ -66,7 +66,7 @@ function WalletPortfolio() {
                 {balances.balances.map((row, index) => (
                     <Grid key={`wgrid-${row.currency}-${index}`} item xs={12} sm={6} md={12}>
                         <ListItem key={`wli-${row.currency}-${index}`} button>
-                            <ListItemText key={`wlit1-${row.currency}-${index}`} primary={row.currency} secondary={row.amount} />
+                            <ListItemText key={`wlit1-${row.currency}-${index}`} primary={row.base} secondary={row.amount} />
                             <ListItemText key={`wlit2-${row.currency}-${index}`} style={{ textAlign: "right" }} primary={`$${formatCurrency(row.value)} USD`} />
                         </ListItem>
                         <Divider />

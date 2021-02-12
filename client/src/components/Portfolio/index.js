@@ -133,7 +133,7 @@ function Portfolio() {
                 {balances.balances.map((row, index) => (
                     <Grid key={`grid-${row.currency}-${index}`} item xs={12} sm={6} md={12}>
                         <ListItem key={`li-${row.currency}-${index}`} button>
-                            <ListItemText key={`lit1-${row.currency}-${index}`} primary={row.currency} secondary={row.amount} />
+                            <ListItemText key={`lit1-${row.currency}-${index}`} primary={row.base} secondary={row.amount} />
                             <ListItemText key={`lit2-${row.currency}-${index}`} style={{ textAlign: "right" }} primary={`$${formatCurrency(row.value)} USD`} />
                         </ListItem>
                         <Divider />

@@ -45,10 +45,11 @@ function useProvideHoldings() {
     })
   }, [user])
 
-  const addHolding = (exchange, currency, amount) => {
+  const addHolding = (exchange, currency, base, amount) => {
     let param = new URLSearchParams();
     param.append('exchange', exchange);
     param.append('currency', currency);
+    param.append('base', base);
     param.append('amount', amount);
 
     fetch('/api/users/holdings', {
@@ -89,7 +90,7 @@ function useProvideHoldings() {
     holdings.map((row) => {
       let index = balances.findIndex(x => x.currency === row.currency);
       if (index === -1) {
-        balances.push({ currency: row.currency, exchange: row.exchange, amount: 0, value: 0 });
+        balances.push({ currency: row.currency, base: row.base.toUpperCase(), exchange: row.exchange, amount: 0, value: 0 });
         index = balances.length - 1;
       }
       let tempAmount = parseInt(row.amount)
@@ -100,7 +101,7 @@ function useProvideHoldings() {
       tempTotal = Math.round((tempTotal + Number.EPSILON) * 100) / 100
       row.value = tempTotal;
       total += tempTotal;
-      labels.push(row.currency);
+      labels.push(row.base);
       series.push(row.value);
     })
     setBalances({ balances: balances, total:  Math.round((total + Number.EPSILON) * 100) / 100 });

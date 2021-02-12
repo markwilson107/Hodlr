@@ -52,6 +52,7 @@ function AddHoldings() {
     const [transaction, setTransaction] = useState({
         exchange: "binance",
         currency: "btcusdt",
+        base: "btc",
         amount: ""
     })
 
@@ -79,7 +80,7 @@ function AddHoldings() {
     }
 
     const handleCurrency = (event) => {
-        setTransaction({ ...transaction, currency: event.target.value })
+        setTransaction({ ...transaction, currency: event.target.value, base: event.target[event.target.selectedIndex].getAttribute('data-base') })
     }
 
     const onAmountChange = (event) => {
@@ -88,7 +89,7 @@ function AddHoldings() {
 
     const handleNext = () => {
         if (activeStep === 2 && transaction.amount > 0) {
-            addHolding(transaction.exchange, transaction.currency, transaction.amount);
+            addHolding(transaction.exchange, transaction.currency, transaction.base, transaction.amount);
             setTransaction({ ...transaction, amount: 0 })
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
         } else {
