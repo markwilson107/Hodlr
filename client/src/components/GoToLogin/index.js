@@ -11,17 +11,17 @@ import Style from './style';
 
 const useStyles = makeStyles((theme) => (Style(theme)));
 
-function CreateAccount(props) {
+function GoToLogin(props) {
     const classes = useStyles();
 
     return (
         <div className={classes.back}>
             <Hidden xsDown>
-                <Typography variant="caption" className={classes.text}>Don't have an account?</Typography>
+                <Typography variant="caption" className={classes.text}>Already have an account?</Typography>
             </Hidden>
-            <Link className={classes.button} to={{ pathname: "/register" }}>
-                <Button href="#" variant="outlined" >
-                    Create Account
+            <Link className={classes.button}  to={{ pathname: "/login" }}>
+                <Button variant="outlined" >
+                    Login
                 </Button>
             </Link>
 
@@ -30,4 +30,4 @@ function CreateAccount(props) {
 
 }
 
-export default CreateAccount;
+export default GoToLogin;

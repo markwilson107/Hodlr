@@ -51,7 +51,6 @@ function Login(props) {
                             <LoginForm />
                         </Grid>
                     </Grid>
-
                 </Container>
             </div>
         )

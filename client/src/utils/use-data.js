@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useState, useEffect, useRef } from "react";
 import { useDidMount } from './useDidMount';
+import { useAuth } from '../utils/use-auth';
 
 const axios = require('axios');
 
@@ -19,6 +20,9 @@ export function useData() {
 }
 
 function useProvideData() {
+  const {
+    isLoggedIn
+  } = useAuth();
 
   const didMount = useDidMount();
 
