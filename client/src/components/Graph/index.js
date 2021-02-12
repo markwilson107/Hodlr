@@ -29,7 +29,8 @@ function Graph() {
         setGraphData,
         series,
         intervals,
-        setIntervals
+        setIntervals,
+        currentSelect
     } = useData();
     const {
         favorites,
@@ -70,7 +71,7 @@ function Graph() {
                     curve: 'smooth',
                     lineCap: 'butt',
                     colors: undefined,
-                    width: 2,
+                    width: 1,
                     dashArray: 0,
                 },
                 dataLabels: {
@@ -120,7 +121,7 @@ function Graph() {
         });
 
         const handleStar = () => {
-            if (currentFavorite.exchange === exchange.current && currentFavorite.pair === pairs.current.pair) {
+            if (currentFavorite.exchange === currentSelect.exchange && currentFavorite.pair === currentSelect.pair.pair) {
                 removeFavorite();
             } else {
                 addFavorite();
@@ -131,7 +132,7 @@ function Graph() {
         <div id="graphDiv" className={`${classes.root}`}>
             <div className={classes.toolbar}>
                 <ExchangeSelect exchange={exchange} setExchange={setExchange} />
-                <PairSelect pairs={pairs} setPairs={setPairs} />
+                <PairSelect />
                 <IntervalSelect intervals={intervals} setIntervals={setIntervals} />
 
                 <div
@@ -140,7 +141,7 @@ function Graph() {
                     onClick={handleStar}
                     className={`${classes.star} ${classes.yellow}`}
                 >
-                    {starIsShown || currentFavorite.exchange === exchange.current && currentFavorite.pair === pairs.current.pair
+                    {starIsShown || currentFavorite.exchange === currentSelect.exchange && currentFavorite.pair === currentSelect.pair.pair
                         ? <StartIcon />
                         : <StartBorderIcon />
                     }

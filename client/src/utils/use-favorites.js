@@ -36,7 +36,9 @@ function useProvideFavorites() {
     pairs,
     setPairs,
     intervals,
-    setIntervals
+    setIntervals,
+    setCurrentSelect,
+    currentSelect
   } = useData();
 
   useEffect(() => {
@@ -49,8 +51,8 @@ function useProvideFavorites() {
     }).then(favs => {
       if (favs !== {})
       {
-      setFavorites(favs)
-      console.log(favs)
+      setFavorites(favs);
+      setCurrentSelect({ exchange: favs[0].exchange, pair: { pair: favs[0].pair, base: favs[0].base, quote: favs[0].quote }})
       }
     }).catch(err => {
       setFavorites([]);
@@ -61,26 +63,25 @@ function useProvideFavorites() {
   useEffect(() => {
     if (favorites != [])
     favorites.map((row) => {
-      if (row.exchange === exchange.current && row.pair === pairs.current.pair) {
+      if (row.exchange === currentSelect.exchange && row.pair === currentSelect.pair.pair) {
         setCurrentFavorite({
-          exchange: exchange.current,
-          pair: pairs.current.pair,
-          base: pairs.current.base,
-          quote: pairs.current.quote,
-          interval: intervals.current
+          exchange: currentSelect.exchange,
+          pair: currentSelect.pair.pair,
+          base: currentSelect.pair.base,
+          quote: currentSelect.pair.quote
       });
       }
     })
-  }, [exchange, pairs])
+  }, [currentSelect])
+
 
   const addFavorite = () => {
 
     let param = new URLSearchParams();
-    param.append('exchange', exchange.current);
-    param.append('pair', pairs.current.pair);
-    param.append('quote', pairs.current.quote);
-    param.append('base', pairs.current.base);
-    param.append('interval', intervals.current);
+    param.append('exchange', currentSelect.exchange);
+    param.append('pair', currentSelect.pair.pair);
+    param.append('quote', currentSelect.pair.quote);
+    param.append('base', currentSelect.pair.base);
 
     fetch('/api/users/favorites', {
       method: 'PUT',
@@ -93,11 +94,10 @@ function useProvideFavorites() {
     }).then(data => {
       setFavorites(data);
       setCurrentFavorite({
-        exchange: exchange.current,
-        pair: pairs.current.pair,
-        base: pairs.current.base,
-        quote: pairs.current.quote,
-        interval: intervals.current
+        exchange: currentSelect.exchange,
+        pair: currentSelect.pair.pair,
+        base: currentSelect.pair.base,
+        quote: currentSelect.pair.quote
     });
     }).catch((err) => {
       console.log(err)
@@ -106,8 +106,8 @@ function useProvideFavorites() {
 
   const removeFavorite = () => {
     let param = new URLSearchParams();
-    param.append('exchange', exchange.current);
-    param.append('pair', pairs.current.pair);
+    param.append('exchange', currentSelect.exchange);
+    param.append('pair', currentSelect.pair.pair);
     fetch('/api/users/favorites', {
       method: 'DELETE',
       headers: {
@@ -122,8 +122,7 @@ function useProvideFavorites() {
         exchange: "",
         pair: "",
         base: "",
-        quote: "",
-        interval: ""
+        quote: ""
     });
     }).catch((err) => {
       console.log(err)

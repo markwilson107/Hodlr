@@ -22,6 +22,8 @@ function useProvideData() {
 
   const didMount = useDidMount();
 
+  const [currentSelect, setCurrentSelect] = useState({ exchange: "", pair: { pair: "btcusdt", base: "btc", quote: "usdt" } })
+
   const [exchange, setExchange] = useState({
     current: "binance",
     list: []
@@ -63,6 +65,8 @@ function useProvideData() {
     list: [{ label: "1m", value: "60" }, { label: "3m", value: "180" }, { label: "5m", value: "300" }, { label: "15m", value: "900" }, { label: "30m", value: "1800" }, { label: "1h", value: "3600" }, { label: "2h", value: "7200" }, { label: "4h", value: "14400" }, { label: "6h", value: "21600" }, { label: "12h", value: "43200" }, { label: "1d", value: "86400" }, { label: "3d", value: "259200" }, { label: "1w", value: "604800" }]
   });
 
+  const [pairsOverride, setPairsOverride] = useState({ override: false, state: ""})
+
   const formatData = (data) => {
     let newData = [];
     data.map((row) => {
@@ -83,30 +87,56 @@ function useProvideData() {
     })
   }
 
+  useEffect(() => {
+    getExchange();
+  }, [])
+
   function getPairs() {
     axios({
       method: "get",
       url: "/api/exchange/exchanges/" + exchange.current
     }).then((res) => {
-      setPairs({ ...pairs, list: res.data });
+      if (pairsOverride.override)
+      {
+      setPairs({ current: pairsOverride.state, list: res.data });
+      setPairsOverride ({ override: false, state: ""})
+      }
+      else
+      {
+      setPairs({ current: res.data[0], list: res.data });
+      }
       console.log("Pairs updated")
     }).catch((err) => {
       console.log(err);
     })
   }
 
+  useEffect(() => {
+    if (didMount )
+    getPairs();
+  }, [exchange])
+
+  // useEffect(() => {
+  //   if (didMount)
+  //   setCurrentSelect({ exchange: exchange.current, pair: pairs.current})
+  // }, [pairs])
+
   function getGraph() {
     axios({
       method: "get",
-      url: `/api/price/${exchange.current}/${pairs.current.pair}`
+      url: `/api/price/${currentSelect.exchange}/${currentSelect.pair.pair}`
     }).then((res) => {
       console.log("Graph updated")
       setGraphData(res.data);
-      console.log(pairs.current)
     }).catch((err) => {
       console.log(err);
     })
   }
+
+  useEffect(() => {
+    if (didMount)
+    getGraph();
+  }, [currentSelect])
 
   function updateSeries() {
     console.log("Series updated")
@@ -116,29 +146,10 @@ function useProvideData() {
     }])
   }
 
-
-  useEffect(() => {
-    getExchange();
-  }, [])
-
-
-  useEffect(() => {
-    if (didMount)
-    getPairs();
-  }, [exchange])
-
-
-  useEffect(() => {
-    if (didMount)
-    getGraph();
-  }, [pairs])
-
-
   useEffect(() => {
     if (didMount)
     updateSeries();
   }, [graphData, intervals])
-
 
   return {
     exchange,
@@ -149,7 +160,10 @@ function useProvideData() {
     setGraphData,
     series,
     intervals,
-    setIntervals
+    setIntervals,
+    setPairsOverride,
+    setCurrentSelect,
+    currentSelect
   }
 
 }

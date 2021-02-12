@@ -49,6 +49,13 @@ function Balance() {
                     shadeIntensity: 0.6
                 }
             },
+            stroke: {
+                show: true,
+                curve: 'smooth',
+                lineCap: 'butt',
+                width: 1,
+                dashArray: 0,
+            },
             tooltip: {
                 y: {
                     

@@ -25,21 +25,23 @@ function Holdings(props) {
         pairs,
         setPairs,
         intervals,
-        setIntervals
+        setIntervals,
+        setPairsOverride,
+        setCurrentSelect,
+        currentSelect
     } = useData();
 
 
-    const handleClick = (ex, p, b, q, i) => {
+    const handleClick = (ex, p, b, q) => {
         setCurrentFavorite({
             exchange: ex,
             pair: p,
             base: b,
-            quote: q,
-            interval: i
+            quote: q
         });
+        setCurrentSelect({ exchange: ex, pair: { pair: p, base: b, quote: q }});
         setExchange({ ...exchange, current: ex });
-        setPairs({ ...pairs, current: { pair: p, base: b, quote: q } });
-        setIntervals({ ...intervals, current: i });
+        setPairsOverride({ override: true, state: { pair: p, base: b, quote: q } })
     }
 
     return (
@@ -48,7 +50,7 @@ function Holdings(props) {
                 <Grid container spacing={0}>
                     <Grid item >
                         {favorites.map((row, index) =>
-                            <Button key={row.pair+index} onClick={() => { handleClick(row.exchange, row.pair, row.base, row.quote, row.interval) }} >{row.base}<Typography className={classes.quote} variant="caption">/{row.quote}</Typography></Button>
+                            <Button key={row.pair+index} onClick={() => { handleClick(row.exchange, row.pair, row.base, row.quote) }} >{row.base}<Typography className={classes.quote} variant="caption">/{row.quote}</Typography></Button>
                         )}
 
                     </Grid>

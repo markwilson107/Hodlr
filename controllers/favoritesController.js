@@ -10,7 +10,7 @@ module.exports = {
   updateOrCreate: function(req, res) {
     let newFav = req.body;
     db.Favorites
-      .findOneAndUpdate({ userId: req.user.id }, {"$push": {"favorites": { "exchange": newFav.exchange, "pair": newFav.pair, "quote": newFav.quote, "base": newFav.base, "interval": newFav.interval, "date": Date.now}}}, {upsert: true, new: true,})
+      .findOneAndUpdate({ userId: req.user.id }, {"$push": {"favorites": { "exchange": newFav.exchange, "pair": newFav.pair, "quote": newFav.quote, "base": newFav.base, "date": Date.now}}}, {upsert: true, new: true,})
       .then(favs => res.json(favs.favorites))
       .catch(err => res.status(422).json(err));
   },

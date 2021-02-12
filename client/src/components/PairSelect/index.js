@@ -7,15 +7,29 @@ import PersonIcon from '@material-ui/icons/Person';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import { useData } from '../../utils/use-data';
+
 import style from './style';
 const useStyles = makeStyles((theme) => (style(theme)));
 
-function PairSelect({ pairs, setPairs }) {
 
+
+function PairSelect() {
     const classes = useStyles();
+    const {
+        exchange,
+        setExchange,
+        pairs,
+        setPairs,
+        intervals,
+        setIntervals,
+        setPairsOverride,
+        setCurrentSelect
+    } = useData();
 
     const handleChange = (event) => {
-        setPairs({ ...pairs, current: { pair: event.target.value, base: event.target[event.target.selectedIndex].getAttribute('data-base'), quote: event.target[event.target.selectedIndex].getAttribute('data-quote') } })
+        setCurrentSelect({ exchange: exchange.current, pair: { pair: event.target.value, base: event.target[event.target.selectedIndex].getAttribute('data-base'), quote: event.target[event.target.selectedIndex].getAttribute('data-quote') }})
+        setPairs({ ...pairs, current: { pair: event.target.value, base: event.target[event.target.selectedIndex].getAttribute('data-base'), quote: event.target[event.target.selectedIndex].getAttribute('data-quote')} })
     }
 
     return (
