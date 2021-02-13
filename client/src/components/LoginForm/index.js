@@ -80,6 +80,26 @@ function LoginForm(props) {
         });
     }
 
+    const demoLogin = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        let param = new URLSearchParams();
+        param.append('email', "demo@email.com");
+        param.append('password', "moon123");
+
+        // You must need to validate data but I skipped in here
+        login(param, err => {
+            setIsLoading(false);
+            if (err === 401) {
+                setErrorState({
+                    code: err,
+                    message: "Sorry something went wrong. Please contact me."
+                })
+            }
+        });
+    }
+
 
     return (
             <Grid
@@ -121,7 +141,7 @@ function LoginForm(props) {
                             <Grid item xs={12}>
                                 <Button type="submit" isLoading={isLoading} variant="contained" color="primary" >
                                     Sign in
-                                </Button>
+                                </Button> <Typography style={{marginLeft: 20, color: "grey"}} variant="caption">Login with demo account <a href="#" style={{textDecoration: "none"}} onClick={(e) => demoLogin(e)}>here</a>.</Typography>
                             </Grid>
                         </Grid>
                     </form >

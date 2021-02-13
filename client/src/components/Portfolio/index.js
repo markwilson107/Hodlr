@@ -56,6 +56,18 @@ function Portfolio() {
                 width: 1,
                 dashArray: 0,
             },
+            noData: {
+                text: "Add transactions to see overview",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0,
+                style: {
+                  color: undefined,
+                  fontSize: '14px',
+                  fontFamily: undefined
+                }
+              },
             tooltip: {
                 y: {
                     formatter: function(value) {
@@ -74,7 +86,6 @@ function Portfolio() {
                     dataLabels: {
                         offset: -5
                     }
-
                 }
             },
             legend: {

@@ -30,15 +30,20 @@ function useProvideHoldings() {
   } = useAuth();
 
   useEffect(() => {
+    if (isLoggedIn)
     fetch('/api/users/holdings', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     }).then(res => {
+      console.log(res)
       return res.json()
     }).then(holdings => {
+      if (holdings[0].currency)
+      {
       setHoldings(holdings)
       console.log(holdings)
+      }
     }).catch(err => {
       setHoldings([]);
       console.log(err);
@@ -52,6 +57,7 @@ function useProvideHoldings() {
     param.append('base', base);
     param.append('amount', amount);
 
+    if (isLoggedIn)
     fetch('/api/users/holdings', {
       method: 'PUT',
       headers: {
@@ -69,7 +75,7 @@ function useProvideHoldings() {
   }
 
   useEffect(() => {
-
+    if (isLoggedIn)
     axios({
       method: "get",
       url: "/api/price/all"
@@ -104,11 +110,12 @@ function useProvideHoldings() {
       labels.push(row.base);
       series.push(row.value);
     })
-    setBalances({ balances: balances, total:  Math.round((total + Number.EPSILON) * 100) / 100 });
+    setBalances({ balances: balances, total: Math.round((total + Number.EPSILON) * 100) / 100 });
     setPieData({ series: series, labels: labels })
   }
 
   const updateHoldings = () => {
+    if (isLoggedIn)
     fetch('/api/users/holdings', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')

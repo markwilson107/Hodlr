@@ -44,6 +44,7 @@ function useProvideAuth() {
   const isLoggedIn = user !== null;
 
   useEffect(() => {
+    if (jwt)
     axios({
       method: "get",
       url: "/api/users/user",

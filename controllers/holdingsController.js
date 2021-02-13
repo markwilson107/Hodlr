@@ -5,7 +5,7 @@ module.exports = {
     db.Holdings
       .findOne({ userId: req.user.id })
       .then(holdings => res.json(holdings.holdings))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.json(err));
   },
   updateOrCreate: function(req, res) {
     let newHoldings = req.body;
@@ -15,7 +15,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   // remove: function(req, res) {
-  //   db.Book
+  //   db.Holdings
   //     .findById({ _id: req.params.id })
   //     .then(dbModel => dbModel.remove())
   //     .then(dbModel => res.json(dbModel))

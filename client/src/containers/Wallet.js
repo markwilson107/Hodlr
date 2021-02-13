@@ -10,6 +10,7 @@ import { useAuth } from '../utils/use-auth';
 import Balance from '../components/Balance';
 import WalletPortfolio from '../components/WalletPortfolio';
 import AddHoldings from '../components/AddHoldings';
+import History from '../components/History';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   paddingTop: {
-    padding: "30px 0px 0px 0px"
+    paddingTop: "30px"
   }
 }));
 
@@ -61,14 +62,17 @@ function Wallet(props) {
         <Container maxWidth={false}>
           <Grid container spacing={0}>
             <Grid item xs={12} sm={12} md={8} >
-              <Balance/>
+              <Balance />
             </Grid>
             <Grid item xs={12} sm={12} md={4} >
-             <WalletPortfolio />
+              <WalletPortfolio />
             </Grid>
             <Grid item xs={12} className={classes.paddingTop}>
-             <AddHoldings />
-             </Grid>
+              <AddHoldings />
+            </Grid>
+            <Grid item xs={12} className={classes.paddingTop}>
+              <History />
+            </Grid>
           </Grid>
         </Container>
       </div>

@@ -38,7 +38,7 @@ function WalletPortfolio() {
     }
 
     return (
-        <div className={`${classes.root}`}>
+        <div className={`infoDiv ${classes.root}`}>
             <div className={classes.toolbar}>
                 <Typography variant="body2" >Portfolio</Typography>
             </div>
