@@ -41,12 +41,6 @@ Demo deployed application:
 
 https://hodlr.herokuapp.com/
 
-#### demo login
-
-email: demo@email.com
-
-password: moon123
-
 ## Contributing
 
 If you want to contribute please create an issue or pull-request and I will get back to you as soon as possible.
