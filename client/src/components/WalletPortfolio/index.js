@@ -69,7 +69,6 @@ function WalletPortfolio() {
                             <ListItemText key={`wlit1-${row.currency}-${index}`} primary={row.base} secondary={row.amount} />
                             <ListItemText key={`wlit2-${row.currency}-${index}`} style={{ textAlign: "right" }} primary={`$${formatCurrency(row.value)} USD`} />
                         </ListItem>
-                        <Divider />
                     </Grid>
                 ))}
             </Grid>

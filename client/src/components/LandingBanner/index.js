@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function LandingBanner(props) {
+function LandingBanner() {
     const classes = useStyles();
 
     return (

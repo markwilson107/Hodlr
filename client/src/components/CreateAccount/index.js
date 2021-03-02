@@ -20,7 +20,7 @@ function CreateAccount(props) {
                 <Typography variant="caption" className={classes.text}>Don't have an account?</Typography>
             </Hidden>
             <Link className={classes.button} to={{ pathname: "/register" }}>
-                <Button href="#" variant="outlined" >
+                <Button href="" variant="outlined" >
                     Create Account
                 </Button>
             </Link>

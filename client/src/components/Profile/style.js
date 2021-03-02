@@ -16,16 +16,14 @@ export default (theme) => {
         yellow: {
             color: theme.palette.primary.yellow
         },
-        addTransaction: {
-            textAlign: "center",
-            padding: "20px 0px 20px 0px"
-        },
-        transactionMenu: {
-            textAlign: "center"
-        },
-        input: {
-            width: "100%",
-            maxWidth:"400px"
+        colorSwatch: {
+            backgroundColor: theme.palette.primary.yellow,
+            height: 48,
+            width: 48,
+            borderRadius: "50%",
+            marginLeft: `auto`,
+            marginRight: `auto`,
+            cursor: "pointer"
         }
     }
 };

@@ -61,7 +61,10 @@ function AddHoldings() {
             method: "get",
             url: "/api/exchange/exchanges/" + transaction.exchange
         }).then((res) => {
-            setPairsAvailable(res.data);
+            const filterUSDT = res.data.filter(row => (
+                row.quote === "usdt" || row.quote === "usd"
+            ))
+            setPairsAvailable(filterUSDT);
         }).catch((err) => {
             console.log(err);
         })
@@ -73,7 +76,10 @@ function AddHoldings() {
             method: "get",
             url: "/api/exchange/exchanges/" + event.target.value
         }).then((res) => {
-            setPairsAvailable(res.data);
+            const filterUSDT = res.data.filter(row => (
+                row.quote === "usdt" || row.quote === "usd"
+            ))
+            setPairsAvailable(filterUSDT);
         }).catch((err) => {
             console.log(err);
         })
@@ -165,7 +171,7 @@ function AddHoldings() {
                                 {
                                     pairsAvailable ?
                                         pairsAvailable.map((row) => (
-                                            <option key={row.pair} value={row.pair} data-base={row.base} data-quote={row.quote}>{row.base.toUpperCase()}{"/"}{row.quote.toUpperCase()}</option>
+                                            <option key={row.pair} value={row.pair} data-base={row.base} data-quote={row.quote}>{row.base.toUpperCase()}</option>
                                         )) : ""
                                 }
                             </Select>

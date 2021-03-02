@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => (style(theme)));
 
 function Portfolio() {
     const classes = useStyles();
+    const theme = useTheme();
     const {
         holdings,
         balances,
@@ -44,7 +45,7 @@ function Portfolio() {
             theme: {
                 monochrome: {
                     enabled: true,
-                    color: '#ffce49',
+                    color: theme.palette.primary.yellow,
                     shadeTo: 'light',
                     shadeIntensity: 0.6
                 }
@@ -147,7 +148,6 @@ function Portfolio() {
                             <ListItemText key={`lit1-${row.currency}-${index}`} primary={row.base} secondary={row.amount} />
                             <ListItemText key={`lit2-${row.currency}-${index}`} style={{ textAlign: "right" }} primary={`$${formatCurrency(row.value)} USD`} />
                         </ListItem>
-                        <Divider />
                     </Grid>
                 ))}
             </Grid>

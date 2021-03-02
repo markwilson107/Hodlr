@@ -36,17 +36,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   paddingRight: {
-    paddingRight: "35px",
-    [theme.breakpoints.up('lg')]: {
-      paddingRight: "70px"
-    },
-    [theme.breakpoints.down('lg')]: {
-      paddingRight: "70px"
-    },
+    paddingRight: "30px",
     [theme.breakpoints.down('sm')]: {
-      paddingRight: "0px"
-    },
-    [theme.breakpoints.down('xs')]: {
       paddingRight: "0px"
     }
   },

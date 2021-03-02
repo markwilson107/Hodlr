@@ -2,14 +2,14 @@ import React from 'react';
 import { useAuth } from './use-auth';
 import { Redirect, Route } from "react-router-dom";
 
-function PrivateRoute({ comp: Component, ...rest }) {
+function PrivateRoute({ comp: Component, changeTheme, ...rest }) {
   let { user } = useAuth();
   return (
     <Route
       {...rest}
       render={props => 
         user ?
-          <Component {...props} />
+          <Component {...props} changeTheme={changeTheme} />
           :
           <Redirect
             to={{

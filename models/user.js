@@ -16,6 +16,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  color: {
+    type: String,
+    default: '#ffce49'
+  },
   date: {
     type: Date,
     default: Date.now

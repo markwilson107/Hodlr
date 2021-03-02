@@ -12,12 +12,12 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Landing() {
+function Landing({changeTheme}) {
     const classes = useStyles();
 
     return (
         <div>
-            <LandingBanner/>
+            <LandingBanner changeTheme={() => changeTheme}/>
         </div>
     );
 }

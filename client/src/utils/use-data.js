@@ -26,7 +26,15 @@ function useProvideData() {
 
     const didMount = useDidMount();
 
-    const [currentSelect, setCurrentSelect] = useState({ exchange: "", pair: { pair: "btcusdt", base: "btc", quote: "usdt" } })
+    const [currentSelect, setCurrentSelect] = useState({ 
+      exchange: "", 
+      pair: 
+      { 
+        pair: "btcusdt", 
+        base: "btc", 
+        quote: "usdt" 
+      }
+    });
 
     const [exchange, setExchange] = useState({
       current: "binance",
@@ -69,7 +77,10 @@ function useProvideData() {
       list: [{ label: "1m", value: "60" }, { label: "3m", value: "180" }, { label: "5m", value: "300" }, { label: "15m", value: "900" }, { label: "30m", value: "1800" }, { label: "1h", value: "3600" }, { label: "2h", value: "7200" }, { label: "4h", value: "14400" }, { label: "6h", value: "21600" }, { label: "12h", value: "43200" }, { label: "1d", value: "86400" }, { label: "3d", value: "259200" }, { label: "1w", value: "604800" }]
     });
 
-    const [pairsOverride, setPairsOverride] = useState({ override: false, state: "" })
+    const [pairsOverride, setPairsOverride] = useState({ 
+      override: false, 
+      state: "" 
+    });
 
 
     const formatData = (data) => {

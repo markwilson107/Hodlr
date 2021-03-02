@@ -26,69 +26,44 @@ function useProvideHoldings() {
     isLoggedIn,
     user,
     logout,
-    updateJwt
+    updateJwt,
+    jwt
   } = useAuth();
 
   useEffect(() => {
     if (isLoggedIn)
-    fetch('/api/users/holdings', {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    }).then(res => {
-      console.log(res)
-      return res.json()
-    }).then(holdings => {
-      if (holdings[0].currency)
-      {
-      setHoldings(holdings)
-      console.log(holdings)
-      }
-    }).catch(err => {
-      setHoldings([]);
-      console.log(err);
-    })
+      fetch('/api/users/holdings', {
+        headers: {
+          Authorization: 'Bearer ' + jwt
+        }
+      }).then(res => {
+        console.log(res)
+        return res.json()
+      }).then(holdings => {
+        if (holdings[0].currency) {
+          setHoldings(holdings)
+          console.log(holdings)
+        }
+      }).catch(err => {
+        setHoldings([]);
+        console.log(err);
+      })
   }, [user])
-
-  const addHolding = (exchange, currency, base, amount) => {
-    let param = new URLSearchParams();
-    param.append('exchange', exchange);
-    param.append('currency', currency);
-    param.append('base', base);
-    param.append('amount', amount);
-
-    if (isLoggedIn)
-    fetch('/api/users/holdings', {
-      method: 'PUT',
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      },
-      body: param
-    }).then(res => {
-      return res.json()
-    }).then(data => {
-      updateHoldings();
-      console.log(data);
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
 
   useEffect(() => {
     if (isLoggedIn)
-    axios({
-      method: "get",
-      url: "/api/price/all"
-    }).then((res) => {
-      calculate(res.data);
-    }).catch((err) => {
-      console.log(err)
-    })
+      axios({
+        method: "get",
+        url: "/api/price/all"
+      }).then((res) => {
+        calculate(res.data);
+      }).catch((err) => {
+        console.log(err)
+      })
 
   }, [holdings])
 
   const calculate = (priceData) => {
-
     let balances = [];
     let total = 0;
     let series = [];
@@ -114,23 +89,70 @@ function useProvideHoldings() {
     setPieData({ series: series, labels: labels })
   }
 
-  const updateHoldings = () => {
+  const addHolding = (exchange, currency, base, amount) => {
+    let param = new URLSearchParams();
+    param.append('exchange', exchange);
+    param.append('currency', currency);
+    param.append('base', base);
+    param.append('amount', amount);
+
     if (isLoggedIn)
-    fetch('/api/users/holdings', {
+      fetch('/api/users/holdings', {
+        method: 'PUT',
+        headers: {
+          Authorization: 'Bearer ' + jwt
+        },
+        body: param
+      }).then(res => {
+        return res.json()
+      }).then(data => {
+        updateHoldings();
+        console.log(data);
+      }).catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const removeHolding = (date) => {
+    fetch(`/api/users/holdings/${date}`, {
+      method: 'DELETE',
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + jwt
       }
     }).then(res => {
-      return res.json()
+      return res.json();
     }).then(holdings => {
-      setHoldings(holdings)
-    }).catch(err => {
+      if (holdings[0].date) {
+        setHoldings(holdings);
+      }
+      else {
+        setHoldings([]);
+      }
+
+      console.log(holdings);
+    }).catch((err) => {
       console.log(err);
     })
   }
 
+  const updateHoldings = () => {
+    if (isLoggedIn)
+      fetch('/api/users/holdings', {
+        headers: {
+          Authorization: 'Bearer ' + jwt
+        }
+      }).then(res => {
+        return res.json()
+      }).then(holdings => {
+        setHoldings(holdings)
+      }).catch(err => {
+        console.log(err);
+      })
+  }
+
   return {
     addHolding,
+    removeHolding,
     holdings,
     balances,
     pieData

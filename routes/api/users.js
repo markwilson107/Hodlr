@@ -19,7 +19,7 @@ router.post("/register", (req, res) => {
 		name: req.body.name,
 		email: req.body.email,
 		password: req.body.password,
-		password2: req.body.password2
+		color: '#ffce49'
 	})
 
 
@@ -66,7 +66,9 @@ router.get('/user', passport.authenticate('jwt', {
 	}
 
 	res.json({
-		user: req.user.name
+		user: req.user.name,
+		email: req.user.email,
+		color: req.user.color
 	})
 })
 

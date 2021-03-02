@@ -14,5 +14,8 @@ router.put('/holdings', passport.authenticate('jwt', {
 	session: false
 }), holdingsController.updateOrCreate)
 
+router.delete('/holdings/:date', passport.authenticate('jwt', {
+	session: false
+}), holdingsController.remove)
 
 module.exports = router;

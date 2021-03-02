@@ -64,13 +64,11 @@ function Register(props) {
     const submitHandle = (e) => {
         e.preventDefault();
         e.stopPropagation();
-
         setErrorState(
             {
                 code: null,
                 message: ""
-            }
-        );
+            });
         setIsLoading(true);
 
         let param = new URLSearchParams();
@@ -79,7 +77,7 @@ function Register(props) {
         param.append('password', userState.password);
         param.append('password2', userState.password2);
 
-        // You must need to valide data but I skip in here
+        // Need to validate data 
 
         // Send request to the server
         fetch('/api/users/register', {

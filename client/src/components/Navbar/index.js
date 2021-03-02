@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
         padding: "20px",
         display: "inline-block",
         "&:hover": {
-            backgroundColor: "#f7c744"
+            backgroundColor: theme.palette.primary.dark
         },
     },
     toolbarButtonDiv: {
@@ -82,7 +82,6 @@ function Navbar(props) {
             <Toolbar className={classes.toolbar} >
                 <NavLink to={{ pathname: "/" }} ><img src="./hodlr-logo-300.png" className={classes.logo}></img></NavLink>
                 <div className={classes.toolbarButtonDiv}>
-
                     {isLoggedIn
                         ? (<>
                             <NavLink className={classes.toolbarButton1} to={{ pathname: "/wallet" }} activeClassName={classes.toolbarButtonSelect} >

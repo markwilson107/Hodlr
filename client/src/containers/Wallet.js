@@ -11,6 +11,7 @@ import Balance from '../components/Balance';
 import WalletPortfolio from '../components/WalletPortfolio';
 import AddHoldings from '../components/AddHoldings';
 import History from '../components/History';
+import Profile from '../components/Profile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,10 +37,15 @@ const useStyles = makeStyles((theme) => ({
   },
   paddingTop: {
     paddingTop: "30px"
+  },
+  paddingLeft: {
+    [theme.breakpoints.up('md')]: {
+    paddingLeft: "30px"
+    }
   }
 }));
 
-function Wallet(props) {
+function Wallet({ changeTheme }) {
   const classes = useStyles();
   const {
     isLoggedIn,
@@ -70,8 +76,11 @@ function Wallet(props) {
             <Grid item xs={12} className={classes.paddingTop}>
               <AddHoldings />
             </Grid>
-            <Grid item xs={12} className={classes.paddingTop}>
+            <Grid item xs={12} md={7} className={classes.paddingTop}>
               <History />
+            </Grid>
+            <Grid item xs={12} md={5} className={`${classes.paddingTop} ${classes.paddingLeft}`}>
+              <Profile changeTheme={changeTheme} />
             </Grid>
           </Grid>
         </Container>
