@@ -122,14 +122,13 @@ function useProvideHoldings() {
     }).then(res => {
       return res.json();
     }).then(holdings => {
-      if (holdings[0].date) {
+      console.log(holdings)
+      if (holdings) {
         setHoldings(holdings);
       }
       else {
         setHoldings([]);
       }
-
-      console.log(holdings);
     }).catch((err) => {
       console.log(err);
     })
@@ -154,6 +153,7 @@ function useProvideHoldings() {
     addHolding,
     removeHolding,
     holdings,
+    setHoldings,
     balances,
     pieData
   }

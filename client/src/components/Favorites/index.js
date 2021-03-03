@@ -12,11 +12,12 @@ import { useData } from '../../utils/use-data';
 import style from './style';
 const useStyles = makeStyles((theme) => (style(theme)));
 
-function Holdings(props) {
+function Favorites(props) {
     const classes = useStyles();
     const {
         favorites,
         addFavorite,
+        removeFavorite,
         setCurrentFavorite
     } = useFavorites();
     const {
@@ -60,4 +61,4 @@ function Holdings(props) {
     );
 }
 
-export default Holdings;
+export default Favorites;

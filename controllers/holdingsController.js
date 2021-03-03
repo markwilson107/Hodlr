@@ -16,10 +16,9 @@ module.exports = {
   },
   remove: function (req, res) {
     const deleteHold = req.params["date"];
-console.log(deleteHold)
     db.Holdings
-      .findOneAndUpdate({ userId: req.user.id }, { "$pull": { "holdings": { "date": parseInt(deleteHold) } } })
-      .then(holdings => res.json(holdings))
+      .findOneAndUpdate({ userId: req.user.id }, { "$pull": { "holdings": { "date": parseInt(deleteHold) } } }, {upsert: true, new: true,})
+      .then(holdings => res.json(holdings.holdings))
       .catch(err => res.status(422).json(err));
   }
 };

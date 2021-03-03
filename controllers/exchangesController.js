@@ -10,7 +10,6 @@ module.exports = {
     if (result === [] || result === undefined)
       res.status(422);
     else {
-      console.log(result)
       res.json(result.sort((a, b) => a.localeCompare(b)));
     }
   },

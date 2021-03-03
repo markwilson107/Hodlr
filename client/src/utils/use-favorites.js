@@ -87,7 +87,7 @@ function useProvideFavorites() {
       fetch('/api/users/favorites', {
         method: 'PUT',
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
+          Authorization: 'Bearer ' + jwt
         },
         body: param
       }).then(res => {
@@ -113,7 +113,7 @@ function useProvideFavorites() {
       fetch('/api/users/favorites', {
         method: 'DELETE',
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
+          Authorization: 'Bearer ' + jwt
         },
         body: param
       }).then(res => {
@@ -130,7 +130,6 @@ function useProvideFavorites() {
         console.log(err)
       })
     }
-
   
   return {
     favorites,

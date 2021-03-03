@@ -20,33 +20,14 @@ function History() {
     const {
         holdings,
         setHoldings,
+        removeHolding,
         addHolding
     } = useHoldings();
     const {
         isLoggedIn,
         jwt
       } = useAuth();
-    const removeHolding = (date) => {
-        fetch(`/api/users/holdings/${date}`, {
-            method: 'DELETE',
-            headers: {
-              Authorization: 'Bearer ' + jwt
-            }
-          }).then(res => {
-            return res.json();
-          }).then(holdings => {
-            if (holdings[0].date) {
-              setHoldings(holdings);
-            }
-            else {
-              setHoldings([]);
-            }
-      
-            console.log(holdings);
-          }).catch((err) => {
-            console.log(err);
-          })
-    }
+
     return (
         <div className={classes.root}>
             <div className={classes.toolbar}>

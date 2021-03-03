@@ -16,8 +16,7 @@ module.exports = {
   },
   remove: function(req, res) {
     let deleteFav = req.body;
-
-    db.Favorites.findOneAndUpdate( { userId: req.user.id }, { "$pull": {"favorites": { "exchange": deleteFav.exchange, "pair": deleteFav.pair } } } )
+    db.Favorites.findOneAndUpdate( { userId: req.user.id }, { "$pull": {"favorites": { "exchange": deleteFav.exchange, "pair": deleteFav.pair } } }, {upsert: true, new: true,})
       .then(favs => res.json(favs.favorites))
       .catch(err => res.status(422).json(err));
   }
