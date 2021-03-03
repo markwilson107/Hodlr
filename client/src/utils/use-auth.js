@@ -22,21 +22,21 @@ function useProvideAuth() {
   const isLoggedIn = user !== null;
 
   useEffect(() => {
-    
+
     if (jwt)
-    axios({
-      method: "get",
-      url: "/api/users/user",
-      headers: {
-        Authorization: 'Bearer ' + jwt
-      }
-    }).then((res) => {
-      setUser(res.data)
-      console.log(res.data);
-    }).catch((err) => {
-      setUser(null)
-      console.log(err)
-    })
+      axios({
+        method: "get",
+        url: "/api/users/user",
+        headers: {
+          Authorization: 'Bearer ' + jwt
+        }
+      }).then((res) => {
+        setUser(res.data)
+        console.log(res.data);
+      }).catch((err) => {
+        setUser(null)
+        console.log(err)
+      })
   }, [jwt])
 
   function updateJwt(token) {
@@ -73,7 +73,14 @@ function useProvideAuth() {
         Authorization: 'Bearer ' + jwt
       }
     }).then((res) => {
-      logout();
+      console.log(res)
+      if (res.data.ok === -1) {
+        alert(res.data.message)
+      } else {
+        if (res.data.ok === 0)
+          alert(res.data.message)
+        logout();
+      }
     }).catch((err) => {
       console.log(err);
     })

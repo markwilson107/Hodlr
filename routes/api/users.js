@@ -75,7 +75,48 @@ router.get('/user', passport.authenticate('jwt', {
 router.delete('/user', passport.authenticate('jwt', {
 	session: false
 }), (req, res) => {
-console.log(req.user.id)
+	console.log(req.user.id)
+	if (req.user.email === "demo@email.com") {
+		res.json({
+			ok: -1,
+			message: `Demo account can't be removed.`
+		});
+	} else {
+		db.User.deleteOne({ _id: req.user.id }, function (err) {
+			if (err) {
+				console.log(err);
+				res.json({
+					ok: -1,
+					message: `${req.user.email} could not be removed.`
+				});
+			} else {
+				db.Favorites.deleteOne({ userId: req.user.id }, function (err) {
+					if (err) {
+						console.log(err);
+						res.json({
+							ok: 0,
+							message: `${req.user.email} could not be fully removed, please contact support.`
+						});
+					} else {
+						db.Holdings.deleteOne({ userId: req.user.id }, function (err) {
+							if (err) {
+								console.log(err);
+								res.json({
+									ok: 0,
+									message: `${req.user.email} could not be fully removed, please contact support.`
+								});
+							} else {
+								res.json({
+									ok: 1,
+									message: `${req.user.email} has been removed.`
+								});
+							}
+						});
+					}
+				});
+			}
+		});
+	}
 });
 
 module.exports = router;
