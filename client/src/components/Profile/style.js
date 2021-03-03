@@ -3,7 +3,7 @@ export default (theme) => {
         root: {
             position: "relative",
             backgroundColor: "white",
-            height: "100%",
+            height: "200px",
             margin: "20px 0px 20px 0px"
         },
         toolbar: {

@@ -18,11 +18,12 @@ import { CompactPicker } from 'react-color'
 import style from './style';
 const useStyles = makeStyles((theme) => (style(theme)));
 
-function Profile({changeTheme}) {
+function Profile({ changeTheme }) {
   const classes = useStyles();
   const {
     isLoggedIn,
     user,
+    removeUser,
     jwt,
     login,
     logout,
@@ -31,11 +32,14 @@ function Profile({changeTheme}) {
 
   const [pickerVisible, setPickerVisible] = useState(false);
 
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   const handleColorChange = ({ hex }) => {
     changeTheme(hex);
     setPickerVisible(!pickerVisible);
   };
-  const onTogglePicker = () => setPickerVisible(!pickerVisible)
+
+  const onTogglePicker = () => setPickerVisible(!pickerVisible);
 
   return (
     <div className={classes.root}>
@@ -61,6 +65,23 @@ function Profile({changeTheme}) {
           />
         </div>
       ) : ""}
+      {
+        confirmDelete ? (
+          <ListItem style={{ position: "absolute", bottom: 0 }}>
+            <ListItemText primary="Are you sure?" />
+            <Button onClick={() => { removeUser() }} style={{ textAlign: "right", color: "red" }} >
+              Yes
+              </Button>
+            <Button onClick={() => { setConfirmDelete(false) }} style={{ textAlign: "right" }} >
+              No
+              </Button>
+          </ListItem>
+        ) : (
+            <ListItem button onClick={() => { setConfirmDelete(true) }} style={{ textAlign: "center", position: "absolute", bottom: 0, color: "red" }}>
+              <ListItemText primary="Remove Account" />
+            </ListItem>
+          )
+      }
     </div>
   );
 }

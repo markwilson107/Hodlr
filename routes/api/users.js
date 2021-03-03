@@ -70,6 +70,12 @@ router.get('/user', passport.authenticate('jwt', {
 		email: req.user.email,
 		color: req.user.color
 	})
-})
+});
+
+router.delete('/user', passport.authenticate('jwt', {
+	session: false
+}), (req, res) => {
+console.log(req.user.id)
+});
 
 module.exports = router;

@@ -56,18 +56,33 @@ function useProvideAuth() {
       if (err.response) {
         cb(err.response.status);
       }
-    })
+    });
   }
 
   function logout() {
     localStorage.removeItem('token');
     setJwt(undefined);
     setUser(null);
+  };
+
+  function removeUser() {
+    axios({
+      method: "delete",
+      url: "/api/users/user",
+      headers: {
+        Authorization: 'Bearer ' + jwt
+      }
+    }).then((res) => {
+      logout();
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
   return {
     isLoggedIn,
     user,
+    removeUser,
     jwt,
     login,
     logout,

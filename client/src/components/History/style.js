@@ -4,7 +4,7 @@ export default (theme) => {
             position: "relative",
             backgroundColor: "white",
             height: "100%",
-            margin: "20px 0px 20px 0px"
+            margin: "20px 0px 0px 0px"
         },
         toolbar: {
             height: "26px",
