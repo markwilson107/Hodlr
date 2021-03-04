@@ -7,7 +7,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import TextField from '@material-ui/core/TextField';
-import ChartJS from "../ChartJS";
 import ApexCharts from 'apexcharts';
 import PriceChart from "react-apexcharts";
 import Select from '@material-ui/core/Select';

@@ -31,11 +31,10 @@ function useProvideAuth() {
           Authorization: 'Bearer ' + jwt
         }
       }).then((res) => {
-        setUser(res.data)
-        console.log(res.data);
+        setUser(res.data);
       }).catch((err) => {
-        setUser(null)
-        console.log(err)
+        setUser(null);
+        console.log(err);
       })
   }, [jwt])
 

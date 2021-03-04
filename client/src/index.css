@@ -3,12 +3,22 @@ body {
 }
 
 .infoDiv::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .infoDiv::-webkit-scrollbar-track {
+    background: "white";
+  }
+
+  .infoDiv::-webkit-scrollbar-thumb {
+    background: #e7e7e7;
+  }
+
+/* .infoDiv::-webkit-scrollbar {
     display: none;
 }
 
 .infoDiv {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
-}
+} */

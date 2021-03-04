@@ -8,7 +8,7 @@ import StartBorderIcon from '@material-ui/icons/StarBorder';
 import ExchangeSelect from '../ExchangeSelect';
 import PairSelect from '../PairSelect';
 import IntervalSelect from '../IntervalSelect';
-import ChartJS from "../ChartJS";
+import Ticker from '../PriceTicker';
 import ApexCharts from 'apexcharts';
 import PriceChart from "react-apexcharts";
 
@@ -150,11 +150,12 @@ function Graph() {
                 </div>
 
             </div>
+            <Ticker />
             <PriceChart
                 options={chartOptionsState.options}
                 series={series}
                 type="area"
-                height="453"
+                height="423"
                 colors="#ffce49"
             />
         </div>

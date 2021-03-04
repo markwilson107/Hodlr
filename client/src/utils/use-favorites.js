@@ -38,7 +38,8 @@ function useProvideFavorites() {
     intervals,
     setIntervals,
     setCurrentSelect,
-    currentSelect
+    currentSelect,
+    setPairsOverride
   } = useData();
 
     useEffect(() => {
@@ -70,6 +71,8 @@ function useProvideFavorites() {
               base: currentSelect.pair.base,
               quote: currentSelect.pair.quote
             });
+            setExchange({ ...exchange, current: currentSelect.exchange });
+            setPairsOverride({ override: true, state: { pair: currentSelect.pair.pair, base: currentSelect.pair.base, quote: currentSelect.pair.quote } })
           }
         })
     }, [currentSelect])

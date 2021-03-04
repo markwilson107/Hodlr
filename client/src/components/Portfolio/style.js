@@ -4,7 +4,8 @@ export default (theme) => {
             position: "relative",
             backgroundColor:"white" ,
             height: "500px",
-            overflowY: "scroll"
+            overflowY: "auto",
+            overflowX: "hidden"
         },
         toolbar: {
             height: "26px",

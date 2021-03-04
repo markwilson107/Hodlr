@@ -3,8 +3,10 @@ export default (theme) => {
         root: {
             position: "relative",
             backgroundColor: "white",
-            height: "100%",
-            margin: "20px 0px 0px 0px"
+            maxHeight: "480px",
+            overflowY: "auto",
+            margin: "20px 0px 0px 0px",
+            scrollbarColor: "light"
         },
         toolbar: {
             height: "26px",

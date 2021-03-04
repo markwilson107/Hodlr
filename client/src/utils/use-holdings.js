@@ -37,12 +37,10 @@ function useProvideHoldings() {
           Authorization: 'Bearer ' + jwt
         }
       }).then(res => {
-        console.log(res)
-        return res.json()
+        return res.json();
       }).then(holdings => {
         if (holdings[0].currency) {
-          setHoldings(holdings)
-          console.log(holdings)
+          setHoldings(holdings);
         }
       }).catch(err => {
         setHoldings([]);

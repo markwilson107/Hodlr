@@ -29,7 +29,7 @@ function History() {
   } = useAuth();
 
   return (
-    <div className={classes.root}>
+    <div className={`infoDiv ${classes.root}`}>
       <div className={classes.toolbar}>
         <Typography variant="body2" >History</Typography>
       </div>
@@ -38,9 +38,9 @@ function History() {
       </ListItem>
       {
        holdings.length > 0 ?
-          holdings.map((row) => (
+          holdings.map((row, index) => (
 
-            <ListItem button>
+            <ListItem key={`history-${index}`} button>
               <ListItemText primary={<Moment format="Do MMM YYYY">{row.date}</Moment>} secondary={<Moment format="hh:mm:ss">{row.date}</Moment>} />
               <ListItemText primary={row.base.toUpperCase()} secondary={row.amount} />
               <Button onClick={() => { removeHolding(row.date) }} style={{ textAlign: "right", color: "red" }} >
